@@ -1,18 +1,21 @@
 {{
     config(
-        materialized='incremental'
+        materialized='incremental', 
+        incremental_strategy='merge'
     )
 }}
 
 
 select
-    concat(date(ts), lpad(hour(ts), 2, '0'), lpad(minute(ts), 2, '0'), lpad(second(ts), 2, '0')) ts,
+    cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', lpad(minute(ts), 2, '0'),  ':', '00') as timestamp) ts,
     ticker,
-    average(bid_pr) avg_bid_pr
-    average(ask_pr) avg_ask_pr
+    avg(bid_pr) avg_bid_pr,
+    avg(ask_pr) avg_ask_pr
     
 
-from asset_mgmt.positions
+from asset_mgmt.quotes
+group by cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', lpad(minute(ts), 2, '0'),  ':', '00') as timestamp) ,
+    ticker
 
 {% if is_incremental() %}
 

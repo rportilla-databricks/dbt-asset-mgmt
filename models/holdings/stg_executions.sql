@@ -1,7 +1,9 @@
 {{
     config(
         materialized='incremental', 
-        incremental_strategy='merge'
+        incremental_strategy='merge', 
+        file_format='delta',
+            unique_key='ticker'
     )
 }}
 
@@ -11,7 +13,7 @@ select
     ticker,
     sum(case when side_cd = 'B' then quantity else -1*quantity end) aggregate_qty
 
-from asset_mgmt.trades
+from {{ ref('trades')}}
 group by cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', lpad(minute(ts), 2, '0'),  ':', '00') as timestamp) ,
     ticker
 

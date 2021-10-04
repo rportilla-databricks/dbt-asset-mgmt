@@ -9,7 +9,7 @@
 select
     cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', lpad(minute(ts), 2, '0'),  ':', '00') as timestamp) ts,
     ticker,
-    sum(case when side_cd = 'B' then quantity else -1*quantity end quantity) aggregate_qty
+    sum(case when side_cd = 'B' then quantity else -1*quantity end) aggregate_qty
 
 from asset_mgmt.trades
 group by cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', lpad(minute(ts), 2, '0'),  ':', '00') as timestamp) ,

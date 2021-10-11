@@ -6,6 +6,7 @@ sources:
       - name: trades
       - name: quotes
       - name: positions
+      - name: market_trades
 
 models:
 

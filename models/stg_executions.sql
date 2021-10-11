@@ -1,1 +1,1 @@
-select * from {{ source('asset_mgmt', 'trades') }}
+select x.*  from {{ source('asset_mgmt', 'trades') }} x

@@ -1,1 +1,1 @@
-select * from book_value
+select * from {{ref('stg_sentiment')}}

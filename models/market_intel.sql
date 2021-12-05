@@ -5,6 +5,7 @@ with latest as (
     {% if not loop.last %}, {% endif %}
     {% endfor %} 
     from {{ref('book_value')}})
+    
 select b.ts, b.ticker, last_value value, last_shares shares, avg(a.sentiment.compound) sentiment  
 from {{ref('stg_sentiment')}} a join 
 {{ref('book_value')}} b 

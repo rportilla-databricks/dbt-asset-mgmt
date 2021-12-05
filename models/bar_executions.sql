@@ -21,6 +21,6 @@ from {{ ref('stg_executions')}}
 
 {% endif %}
 
-group by date, cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', '00',  ':', '00') as timestamp)  ,
+group by date, ts ,
     ticker
   ) foo

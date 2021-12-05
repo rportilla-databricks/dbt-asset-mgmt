@@ -5,7 +5,7 @@ with latest as (
     sum(value) over (partition by ticker order by ts desc)
     {% endfor %} 
     from {{ref('book_value')}})
-select b.ts, b.ticker, last_v value, last_s shares, avg(a.sentiment.compound) sentiment  
+select b.ts, b.ticker, last_value value, last_shares shares, avg(a.sentiment.compound) sentiment  
 from {{ref('stg_sentiment')}} a join 
 {{ref('book_value')}} b 
 on a.read_ts = b.ts

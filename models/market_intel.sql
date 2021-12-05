@@ -1,6 +1,6 @@
 with latest as (
     select 
-    {% for latest_metric in ["shares"] %}
+    {% for latest_metric in ["shares", "value"] %}
     last({{latest_metric}}) over (partition by ticker order by ts desc) last_{{latest_metric}}
     {% endfor %} 
     from {{ref('book_value')}})

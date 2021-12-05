@@ -34,7 +34,7 @@ from
                   and current row
               ) sma
             from
-              ref({{'stg_market_trades'}}) 
+              {{ref('stg_market_trades')}} 
           ) x
         group by
           ticker,

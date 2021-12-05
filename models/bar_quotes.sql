@@ -23,5 +23,5 @@ from {{ ref('stg_quotes')}}
 
 {% endif %}
 
-group by date, cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', lpad(minute(ts), 2, '0'),  ':', '00') as timestamp) ,
+group by date, cast(concat(date(ts), ' ', lpad(hour(ts), 2, '0'), ':', '00',  ':', '00') as timestamp) ,
     ticker) foo

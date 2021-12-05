@@ -1,4 +1,9 @@
-with latest as (select last(shares) over (partition by ticker order by ts desc) last_s, last(value) over (partition by ticker order by ts desc) last_v from {{ref('book_value')}})
+with latest as (
+    select 
+    {% for latest_metric in ['shares', 'value'] %}
+    last({{latest_metric}}) over (partition by ticker order by ts desc) last_{{latest_metric}}, 
+    {% endfor %} 
+    from {{ref('book_value')}})
 select b.ts, b.ticker, last_v value, last_s shares, avg(a.sentiment.compound) sentiment  
 from {{ref('stg_sentiment')}} a join 
 {{ref('book_value')}} b 

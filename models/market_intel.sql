@@ -2,6 +2,7 @@ with latest as (
     select 
     {% for latest_metric in ["shares", "value"] %}
     last({{latest_metric}}) over (partition by ticker order by ts desc) last_{{latest_metric}}, 
+    sum(value) over (partition by ticker order by ts desc)
     {% endfor %} 
     from {{ref('book_value')}})
 select b.ts, b.ticker, last_v value, last_s shares, avg(a.sentiment.compound) sentiment  

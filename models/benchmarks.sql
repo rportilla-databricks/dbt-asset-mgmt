@@ -1,6 +1,6 @@
 select
   x.*,
-  dllr_value / volume vwap
+  dllr_value / total_volume vwap
 from
   (
     select

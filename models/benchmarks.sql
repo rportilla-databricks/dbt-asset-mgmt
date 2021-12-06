@@ -1,15 +1,13 @@
 select
   x.*,
-  dllr_value / volume vwap,
-  volume total_volume,
-  num_block_trades
+  dllr_value / volume vwap
 from
   (
     select
       ticker,
       date_trunc('MINUTE', event_ts) ts,
       sum(dollar_value) dllr_value,
-      sum(agg_quantity) volume,
+      sum(agg_quantity) total_volume,
       sum(case when agg_quantity >= 10000 then 1 else 0 end) num_block_trades,
       count(agg_quantity) num_trades
     from

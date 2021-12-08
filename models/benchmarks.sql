@@ -16,7 +16,7 @@ from
             select
               ticker,
               event_ts,
-              max(price) price,
+              price,
               sum(size) over (
                 partition by ticker
                 order by

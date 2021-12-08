@@ -5,7 +5,7 @@ from
   (
     select
       ticker,
-      max(price) price
+      max(price) price,
       date_trunc('MINUTE', event_ts) ts,
       sum(dollar_value) dllr_value,
       sum(agg_quantity) total_volume,

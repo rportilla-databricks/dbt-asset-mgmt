@@ -5,6 +5,8 @@
         file_format='delta' , unique_key='tt_key'    )
 }}
 
+select date, tt_key, ts, ticker, sum(aggregate_qty) aggregate_qty 
+from (
 select date, concat(ticker, ts) tt_key, ts, ticker, aggregate_qty
   from (
 select date, 
@@ -24,3 +26,4 @@ from {{ ref('stg_executions')}}
 group by date, ts ,
     ticker
   ) foo
+) foo2

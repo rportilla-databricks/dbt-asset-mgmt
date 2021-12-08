@@ -5,6 +5,7 @@ from
   (
     select
       ticker,
+      max(price) price
       date_trunc('MINUTE', event_ts) ts,
       sum(dollar_value) dllr_value,
       sum(agg_quantity) total_volume,
@@ -15,6 +16,7 @@ from
             select
               ticker,
               event_ts,
+              max(price) price,
               sum(size) over (
                 partition by ticker
                 order by

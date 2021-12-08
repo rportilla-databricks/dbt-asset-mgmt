@@ -27,3 +27,4 @@ group by date, ts ,
     ticker
   ) foo
 ) foo2
+group by date, tt_key, ts, ticker
